@@ -1,15 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Home from './components/pages/Home';
+import Pokemon from './components/pages/Pokemon';
+import { ApolloProvider } from '@apollo/client';
+import { client } from './apollo/client';
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home/>,
+  },
+  {
+    path: "/pokemon/:id",
+    element: <Pokemon/>,
+  },
+]);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <ApolloProvider client={client}>
+    <RouterProvider router={router} />
+    </ApolloProvider>
   </React.StrictMode>
 );
 
